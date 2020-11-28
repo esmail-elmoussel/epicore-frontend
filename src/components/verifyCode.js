@@ -3,7 +3,7 @@ import { postService } from "../services/axiosServices";
 import socketIOClient from "socket.io-client";
 
 // Connecting Socket.io
-const socket = socketIOClient(process.env.REACT_APP_BASE_URL);
+const socket = socketIOClient("https://epicore.herokuapp.com");
 
 class verifyCode extends Component {
   constructor() {
