@@ -49,7 +49,7 @@ class verifyCode extends Component {
     const { errorMessage, valideCode } = this.state;
 
     return valideCode ? (
-      <p>Success</p>
+      <p className="code">Success, notification sent to user successfully</p>
     ) : (
       <>
         <input onChange={this.onInputChange} />

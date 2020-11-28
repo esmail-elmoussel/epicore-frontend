@@ -49,3 +49,8 @@
 .error {
   color: #d14545;
 }
+
+.code {
+  color: green;
+  font-size: 30px;
+}

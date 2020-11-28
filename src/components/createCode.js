@@ -25,10 +25,10 @@ class createCode extends Component {
 
     return (
       <>
-        <button className="button" onClick={this.generateCode}>
+        <p className="code">{code}</p>
+        <button onClick={this.generateCode}>
           <span className="text">Generate Code</span>
         </button>
-        <p>{code}</p>
         {error && <p className="error">an error occurred!</p>}
       </>
     );
