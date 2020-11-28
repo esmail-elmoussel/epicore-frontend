@@ -1,5 +1,9 @@
 import { Component } from "react";
 import { postService } from "../services/axiosServices";
+import socketIOClient from "socket.io-client";
+
+// Connecting Socket.io
+const socket = socketIOClient(process.env.REACT_APP_BASE_URL);
 
 class verifyCode extends Component {
   constructor() {
@@ -25,8 +29,11 @@ class verifyCode extends Component {
     postService("/discount/validate", {
       code: code,
     })
-      .then((res) => {
+      .then(() => {
         this.setState({ valideCode: true });
+        socket.emit("codeVerifiedSuccessfully", {
+          // some data about user
+        });
       })
       .catch((err) => {
         console.log(err.response.data);

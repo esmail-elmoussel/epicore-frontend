@@ -23,12 +23,18 @@ class App extends Component {
     ) : route === "verifyCode" ? (
       <VerifyCode />
     ) : (
-      <div className="centered">
-        <button class="button" onClick={() => this.changeRoute("createCode")}>
-          <span class="text">create new code</span>
+      <div>
+        <button
+          className="button"
+          onClick={() => this.changeRoute("createCode")}
+        >
+          <span className="text">create new code</span>
         </button>
-        <button class="button" onClick={() => this.changeRoute("verifyCode")}>
-          <span class="text">verify code</span>
+        <button
+          className="button"
+          onClick={() => this.changeRoute("verifyCode")}
+        >
+          <span className="text">verify code</span>
         </button>
       </div>
     );
