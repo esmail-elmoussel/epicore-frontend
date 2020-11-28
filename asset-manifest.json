@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/epicore-frontend/static/css/main.20c6d9d3.chunk.css",
+    "main.js": "/epicore-frontend/static/js/main.b9462ad6.chunk.js",
+    "main.js.map": "/epicore-frontend/static/js/main.b9462ad6.chunk.js.map",
+    "runtime-main.js": "/epicore-frontend/static/js/runtime-main.0fbae7de.js",
+    "runtime-main.js.map": "/epicore-frontend/static/js/runtime-main.0fbae7de.js.map",
+    "static/js/2.6e036329.chunk.js": "/epicore-frontend/static/js/2.6e036329.chunk.js",
+    "static/js/2.6e036329.chunk.js.map": "/epicore-frontend/static/js/2.6e036329.chunk.js.map",
+    "static/js/3.4da3a80a.chunk.js": "/epicore-frontend/static/js/3.4da3a80a.chunk.js",
+    "static/js/3.4da3a80a.chunk.js.map": "/epicore-frontend/static/js/3.4da3a80a.chunk.js.map",
+    "index.html": "/epicore-frontend/index.html",
+    "static/css/main.20c6d9d3.chunk.css.map": "/epicore-frontend/static/css/main.20c6d9d3.chunk.css.map",
+    "static/js/2.6e036329.chunk.js.LICENSE.txt": "/epicore-frontend/static/js/2.6e036329.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0fbae7de.js",
+    "static/js/2.6e036329.chunk.js",
+    "static/css/main.20c6d9d3.chunk.css",
+    "static/js/main.b9462ad6.chunk.js"
+  ]
+}
