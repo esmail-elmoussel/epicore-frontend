@@ -81,3 +81,19 @@
 |   └── controllers
 └── .gitignore
 ```
+
+## TEAMS
+- UX & UI team ( between 1 ~ 2 person )
+- front-end team ( between 2 ~ 4 person )
+- back-end team ( between 2 ~ 4 person )
+- testing team ( between 1 ~ 2 person )
+
+## TIMELINE
+
+so approximately this project could take : 
+- ( 4 to 6 ) weeks for UX & UI
+- ( 8 to 12 ) weeks for front-end and back-end team
+- ( 1 to 2 ) weeks for testing and deploying
+- ( 2 ) weeks as risk time (these for the clint only)
+
+so over all it could take between 13 and 20 weeks depending on team members
