@@ -1,38 +1,59 @@
-import { useState } from "react";
-import { postService } from "../services/axiosServices";
+import { useEffect, useState } from "react";
+import { gql, useLazyQuery } from "@apollo/client";
 // import socketIOClient from "socket.io-client";
 
 // Connecting Socket.io
 // const socket = socketIOClient("https://epicore.herokuapp.com");
 
+const VALIDATE_DISCOUNT = gql`
+  query ($code: Int!) {
+    validateDiscount(code: $code) {
+      success
+      message
+      discount {
+        id
+        code
+        expirationDate
+      }
+    }
+  }
+`;
+
 const VerifyCode = () => {
   const [code, setCode] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [valideCode, setValideCode] = useState(false);
+  const [validateCodeQuery, { loading, data }] =
+    useLazyQuery(VALIDATE_DISCOUNT);
+
+  useEffect(() => {
+    if (loading) return;
+
+    if (data?.validateDiscount?.success) {
+      setValideCode(true);
+
+      // send motification to user
+      // socket.emit("codeVerifiedSuccessfully", {
+      //   // some data about user
+      // });
+    } else {
+      setErrorMessage(data?.validateDiscount?.message);
+    }
+  }, [loading, data]);
 
   const validateCode = () => {
     if (code.length !== 4 || !Number(code)) {
       return setErrorMessage("please enter a 4 digits code!");
     }
 
-    postService("/discount/validate", { code })
-      .then(() => {
-        setValideCode(true);
-        // socket.emit("codeVerifiedSuccessfully", {
-        //   // some data about user
-        // });
-      })
-      .catch((err) => {
-        if (err.response?.data?.message === "code is not valid!") {
-          return setErrorMessage(err.response?.data?.message);
-        }
-        setErrorMessage("something went wrong");
-      });
+    validateCodeQuery({ variables: { code: Number(code) } });
   };
 
   return (
     <div className="container">
-      {valideCode ? (
+      {loading ? (
+        <p>loading...</p>
+      ) : valideCode ? (
         <p className="code">Success, notification sent to user successfully</p>
       ) : (
         <>
