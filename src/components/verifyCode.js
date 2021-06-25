@@ -1,65 +1,50 @@
-import { Component } from "react";
+import { useState } from "react";
 import { postService } from "../services/axiosServices";
-import socketIOClient from "socket.io-client";
+// import socketIOClient from "socket.io-client";
 
 // Connecting Socket.io
-const socket = socketIOClient("https://epicore.herokuapp.com");
+// const socket = socketIOClient("https://epicore.herokuapp.com");
 
-class verifyCode extends Component {
-  constructor() {
-    super();
-    this.state = {
-      code: "",
-      errorMessage: "",
-      valideCode: false,
-    };
-  }
+const VerifyCode = () => {
+  const [code, setCode] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [valideCode, setValideCode] = useState(false);
 
-  onInputChange = (e) => {
-    this.setState({ code: e.target.value });
-  };
-
-  validateCode = () => {
-    const { code } = this.state;
-
+  const validateCode = () => {
     if (code.length !== 4 || !Number(code)) {
-      return this.setState({ errorMessage: "please enter a 4 digits code!" });
+      return setErrorMessage("please enter a 4 digits code!");
     }
 
-    postService("/discount/validate", {
-      code: code,
-    })
+    postService("/discount/validate", { code })
       .then(() => {
-        this.setState({ valideCode: true });
-        socket.emit("codeVerifiedSuccessfully", {
-          // some data about user
-        });
+        setValideCode(true);
+        // socket.emit("codeVerifiedSuccessfully", {
+        //   // some data about user
+        // });
       })
       .catch((err) => {
-        console.log(err.response.data);
         if (err.response?.data?.message === "code is not valid!") {
-          return this.setState({ errorMessage: err.response?.data?.message });
+          return setErrorMessage(err.response?.data?.message);
         }
-
-        this.setState({ errorMessage: "something went wrong" });
+        setErrorMessage("something went wrong");
       });
   };
 
-  render() {
-    const { errorMessage, valideCode } = this.state;
+  return (
+    <div className="container">
+      {valideCode ? (
+        <p className="code">Success, notification sent to user successfully</p>
+      ) : (
+        <>
+          <input onChange={(e) => setCode(e.target.value)} />
+          <button onClick={validateCode}>
+            <span>Validate</span>
+          </button>
+          {errorMessage && <p className="error">{errorMessage}</p>}
+        </>
+      )}
+    </div>
+  );
+};
 
-    return valideCode ? (
-      <p className="code">Success, notification sent to user successfully</p>
-    ) : (
-      <>
-        <input onChange={this.onInputChange} />
-        <button onClick={this.validateCode}>
-          <span>Validate</span>
-        </button>
-        {errorMessage && <p className="error">{errorMessage}</p>}
-      </>
-    );
-  }
-}
-
-export default verifyCode;
+export default VerifyCode;

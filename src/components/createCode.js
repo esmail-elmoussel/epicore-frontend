@@ -1,38 +1,25 @@
-import { Component } from "react";
+import { useState } from "react";
 import { postService } from "../services/axiosServices";
 
-class createCode extends Component {
-  constructor() {
-    super();
-    this.state = {
-      code: "",
-      error: false,
-    };
-  }
+const CreateCode = () => {
+  const [code, setCode] = useState("");
+  const [error, setError] = useState(false);
 
-  generateCode = () => {
+  const generateCode = () => {
     postService("/discount/create")
-      .then((res) => {
-        this.setState({ code: res.data.code });
-      })
-      .catch(() => {
-        this.setState({ error: true });
-      });
+      .then((res) => setCode(res.data?.code))
+      .catch(() => setError(true));
   };
 
-  render() {
-    const { code, error } = this.state;
+  return (
+    <div className="container">
+      <p className="code">{code}</p>
+      <button onClick={generateCode}>
+        <span className="text">Generate Code</span>
+      </button>
+      {error && <p className="error">an error occurred!</p>}
+    </div>
+  );
+};
 
-    return (
-      <>
-        <p className="code">{code}</p>
-        <button onClick={this.generateCode}>
-          <span className="text">Generate Code</span>
-        </button>
-        {error && <p className="error">an error occurred!</p>}
-      </>
-    );
-  }
-}
-
-export default createCode;
+export default CreateCode;
