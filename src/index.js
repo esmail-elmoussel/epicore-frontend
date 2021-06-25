@@ -2,10 +2,29 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+
+const httpLink = createHttpLink({
+  uri: "https://epicore.herokuapp.com",
+});
+
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      authorization: process.env.REACT_APP_AUTH_PASSWORD,
+    },
+  };
+});
 
 const client = new ApolloClient({
-  uri: "https://epicore.herokuapp.com",
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
