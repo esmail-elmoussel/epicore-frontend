@@ -1,19 +1,42 @@
 import { useState } from "react";
-import { postService } from "../services/axiosServices";
+import { gql, useMutation } from "@apollo/client";
+
+const CREATE_DISCOUNT = gql`
+  mutation {
+    createDiscount {
+      success
+      discount {
+        code
+      }
+    }
+  }
+`;
 
 const CreateCode = () => {
   const [code, setCode] = useState("");
   const [error, setError] = useState(false);
+  const [createDiscount, { loading: mutationLoading }] =
+    useMutation(CREATE_DISCOUNT);
 
   const generateCode = () => {
-    postService("/discount/create")
-      .then((res) => setCode(res.data?.code))
+    createDiscount()
+      .then((res) => {
+        if (res?.data?.createDiscount?.success) {
+          setCode(res?.data?.createDiscount?.discount?.code);
+        } else {
+          setError(true);
+        }
+      })
       .catch(() => setError(true));
   };
 
   return (
     <div className="container">
-      <p className="code">{code}</p>
+      {mutationLoading ? (
+        <p>loading...</p>
+      ) : (
+        code && <p className="code">{code}</p>
+      )}
       <button onClick={generateCode}>
         <span className="text">Generate Code</span>
       </button>
