@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
 import { gql, useLazyQuery } from "@apollo/client";
-// import socketIOClient from "socket.io-client";
-
-// Connecting Socket.io
-// const socket = socketIOClient("https://epicore.herokuapp.com");
 
 const VALIDATE_DISCOUNT = gql`
   query ($code: Int!) {
@@ -31,11 +27,6 @@ const VerifyCode = () => {
 
     if (data?.validateDiscount?.success) {
       setValideCode(true);
-
-      // send motification to user
-      // socket.emit("codeVerifiedSuccessfully", {
-      //   // some data about user
-      // });
     } else {
       setErrorMessage(data?.validateDiscount?.message);
     }
